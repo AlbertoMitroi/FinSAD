@@ -1,0 +1,41 @@
+
+.fastPayment{
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.fastPayment__badges{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.fastPayment__badge{
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: var(--radius-1);
+    padding: 0.6rem var(--card-padding);
+    transition: var(--transition);
+}
+
+.fastPayment__badge:hover{
+    box-shadow: 0 0 1rem var(--color-primary-light);
+}
+
+.fastPayment__badge span{
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+}
+
+.fastPayment__badge div {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}

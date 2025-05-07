@@ -1,0 +1,19 @@
+<section class="fastPayment">
+    <h2>Fast Payment</h2>
+    <ul class="fastPayment__badges">
+      <li class="fastPayment__badge">
+        <h4>+</h4>
+      </li>
+      <li
+        class="fastPayment__badge"
+        *ngFor="let payment of payments"
+      >
+        <span [ngClass]="'bg-' + payment.color"></span>
+        <div>
+          <h5>{{ payment.category }}</h5>
+          <h4>${{ payment.amount }}</h4>
+        </div>
+      </li>
+    </ul>
+  </section>
+  

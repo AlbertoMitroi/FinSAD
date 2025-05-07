@@ -1,0 +1,40 @@
+<section class="recentTransactions">
+    <header class="recentTransactions__header">
+      <h2>Recent Transactions</h2>
+      <a href="#"> More <i class="uil uil-angle-right-b"></i> </a>
+    </header>
+  
+    <article class="transaction" *ngFor="let transaction of transactions">
+      <div class="transaction__service">
+        <div class="icon" 
+             [ngClass]="{
+               'bg-purple-light': transaction.icon === 'uil-headphones-alt', 
+               'bg-primary': transaction.icon === 'uil-shopping-bag', 
+               'bg-success-light': transaction.icon === 'uil-restaurant' || transaction.icon === 'uil-dumbbell',
+               'bg-danger-light': transaction.icon === 'uil-table-tennis' || transaction.icon === 'uil-flask'
+             }">
+          <i class="uil" [ngClass]="transaction.icon"></i>
+        </div>
+        <div class="transaction__details">
+          <h4>{{ transaction.service }}</h4>
+          <p>{{ transaction.date }}</p>
+        </div>
+      </div>
+      <div class="transaction__card-details">
+        <div class="transaction__card-image" [ngClass]="{
+            'bg-danger': transaction.cardImage === 'visa.png', 
+            'bg-dark': transaction.cardImage === 'master card.png'
+          }">
+          <img [src]="transaction.cardImage" alt="" />
+        </div>
+        <div class="transaction_details">
+          <p>{{ transaction.cardNumber }}</p>
+          <small class="text-muted">{{ transaction.cardType }}</small>
+        </div>
+      </div>
+      <h4 [ngClass]="{'danger': transaction.amount < 0, 'success': transaction.amount > 0}">
+        {{ transaction.amount | currency }}
+      </h4>
+    </article>
+  </section>
+  

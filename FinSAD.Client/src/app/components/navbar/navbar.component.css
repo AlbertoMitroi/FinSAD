@@ -1,0 +1,64 @@
+.nav__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav__logo {
+    width: 7rem;
+}
+
+.nav__search{
+    background: var(--color-light);
+    border-radius: var(--radius-1);
+    padding: 0.5rem 1rem;
+    width: 40rem;
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+    color: var(--color-gray-light);
+}
+
+.nav__search input[type="search"]{
+    color: var(--color-dark);
+    width: 100%;
+    background: transparent;
+}
+
+.nav__container i {
+    font-size: 1.6rem;
+}
+
+.nav__profile-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.nav__profile{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav__profile-photo{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.nav__theme-btn{
+    color: var(--color-dark);
+}
+
+.nav__menu-btn {
+    display: none;
+}
+
+.nav__menu-btn i {
+    font-size: 2.6rem;
+    color: var(--color-gray-dark);
+}

@@ -1,0 +1,26 @@
+<section class="investments">
+    <header class="investments__header">
+      <h2>Investments</h2>
+      <a href="#"> More <i class="uil uil-angle-right-b"></i> </a>
+    </header>
+  
+    <article class="investment" *ngFor="let inv of investments">
+      <img [src]="inv.logo" [alt]="inv.company" />
+      <h4>{{ inv.company }}</h4>
+      <div class="investment__date-time">
+        <p>{{ inv.date }}</p>
+        <small class="text-muted">{{ inv.time }}</small>
+      </div>
+      <div class="investment__bond">
+        <p>{{ inv.bonds | number }}</p>
+        <small class="text-muted">Bonds</small>
+      </div>
+      <div class="investment__amount">
+        <h5>${{ inv.amount | number }}</h5>
+        <small [ngClass]="getChangeClass(inv.change)">
+          {{ inv.change > 0 ? '+' : '' }}{{ inv.change }}%
+        </small>
+      </div>
+    </article>
+  </section>
+  
