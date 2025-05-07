@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinSAD.Application\FinSAD.Application.csproj" />
+    <ProjectReference Include="..\FinSAD.Domain\FinSAD.Domain.csproj" />
+    <ProjectReference Include="..\FinSAD.Persistence\FinSAD.Persistence.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

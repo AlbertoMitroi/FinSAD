@@ -1,0 +1,6 @@
+@FinSAD.Api_HostAddress = http://localhost:5015
+
+GET {{FinSAD.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
