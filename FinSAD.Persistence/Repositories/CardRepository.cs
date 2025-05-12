@@ -1,6 +1,7 @@
 ﻿using FinSAD.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using FinSAD.Domain.Interfaces;
+using FinSAD.Application.DTOs;
 
 namespace FinSAD.Persistence.Repositories
 {
@@ -15,6 +16,7 @@ namespace FinSAD.Persistence.Repositories
         {
             var user = await context.Users
                 .Include(u => u.Cards)
+                    .ThenInclude(c => c.AmountHistory)
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             return user?.Cards ?? Enumerable.Empty<Card>();

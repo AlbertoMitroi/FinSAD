@@ -10,6 +10,8 @@
         public string Cvv { get; set; } = string.Empty;
         public string CurrencyLogo { get; set; } = string.Empty;
         public string ProviderLogo { get; set; } = string.Empty;
+        public ICollection<CardAmountHistory> AmountHistory { get; set; } = [];
+
 
         public void Validate() { }
     }
