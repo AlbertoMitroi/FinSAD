@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FinSAD.Application.DTOs;
 using FinSAD.Domain.Entities;
 
 namespace FinSAD.Application.DTOs
@@ -14,11 +13,12 @@ namespace FinSAD.Application.DTOs
         public string CurrencyLogo { get; set; }
         public string ProviderLogo { get; set; }
     }
-}
-public class CardDtoProfile : Profile
-{
-    public CardDtoProfile()
+
+    public class CardDtoProfile : Profile
     {
-        CreateMap<Card, CardDto>();
+        public CardDtoProfile()
+        {
+            CreateMap<Card, CardDto>();
+        }
     }
 }
