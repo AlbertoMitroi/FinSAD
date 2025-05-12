@@ -93,6 +93,32 @@ namespace FinSAD.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Currency = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Holder = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Expiry = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cvv = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    CurrencyLogo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProviderLogo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cards_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FinanceReports",
                 columns: table => new
                 {
@@ -209,16 +235,22 @@ namespace FinSAD.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email_Address", "PasswordHash_Hash" },
-                values: new object[,]
-                {
-                    { 1, "john.doe@example.com", "hashed_password_123" },
-                    { 2, "jane.smith@example.com", "hashed_password_456" }
-                });
+                values: new object[] { 1, "albertomitroi@gmail.com", "hashed@password@123" });
 
             migrationBuilder.InsertData(
                 table: "Budgets",
                 columns: new[] { "Id", "CategoryId", "Month", "UserId", "Year" },
                 values: new object[] { 1, 1, 5, 1, 2025 });
+
+            migrationBuilder.InsertData(
+                table: "Cards",
+                columns: new[] { "Id", "Amount", "Currency", "CurrencyLogo", "Cvv", "Expiry", "Holder", "ProviderLogo", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 27119m, "USD", "USD.png", "**5", new DateTime(2035, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Alberto Mitroi", "citigroup.png", 1 },
+                    { 2, 12102m, "GBP", "GBP.png", "**9", new DateTime(2030, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Alberto Mitroi", "master card.png", 1 },
+                    { 3, 7382m, "EURO", "EURO.png", "**2", new DateTime(2026, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Alberto Mitroi", "visa.png", 1 }
+                });
 
             migrationBuilder.InsertData(
                 table: "FinanceReports",
@@ -247,6 +279,11 @@ namespace FinSAD.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Budgets_UserId",
                 table: "Budgets",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cards_UserId",
+                table: "Cards",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -280,6 +317,9 @@ namespace FinSAD.Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Budgets");
+
+            migrationBuilder.DropTable(
+                name: "Cards");
 
             migrationBuilder.DropTable(
                 name: "Categories");

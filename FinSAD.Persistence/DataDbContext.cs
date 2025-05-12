@@ -7,6 +7,7 @@ namespace FinSAD.Persistence
     public class DataDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Card> Cards { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<Category> Categories { get; set; }

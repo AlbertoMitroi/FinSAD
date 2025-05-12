@@ -11,16 +11,13 @@ namespace FinSAD.Persistence.Seed
         {
             // Users
             modelBuilder.Entity<User>().HasData(
-                new { Id = 1 },
-                new { Id = 2 }
+                new { Id = 1 }
             );
             modelBuilder.Entity<User>().OwnsOne(u => u.Email).HasData(
-                new { UserId = 1, Address = "john.doe@example.com" },
-                new { UserId = 2, Address = "jane.smith@example.com" }
+                new { UserId = 1, Address = "albertomitroi@gmail.com" }
             );
             modelBuilder.Entity<User>().OwnsOne(u => u.PasswordHash).HasData(
-                new { UserId = 1, Hash = "hashed_password_123" },
-                new { UserId = 2, Hash = "hashed_password_456" }
+                new { UserId = 1, Hash = "hashed@password@123" }
             );
 
             // Categories
@@ -64,7 +61,7 @@ namespace FinSAD.Persistence.Seed
                     Message = "You have a new transaction.",
                     Type = "Info",
                     Status = NotificationStatus.Unread,
-                    Timestamp = new DateTime(2025,3,31)
+                    Timestamp = new DateTime(2025, 3, 31)
                 }
             );
 
@@ -94,6 +91,47 @@ namespace FinSAD.Persistence.Seed
             // Recurring Transaction
             modelBuilder.Entity<RecurringTransaction>().HasData(
                 new { Id = 1, StartDate = new DateTime(2025, 1, 1), EndDate = new DateTime(2025, 12, 31), Frequency = "Monthly" }
+            );
+
+            // Cards for User Alberto Mitroi
+            // Cards for User Alberto Mitroi
+            modelBuilder.Entity<Card>().HasData(
+                new
+                {
+                    Id = 1,
+                    UserId = 1,
+                    Currency = "USD",
+                    Amount = 27119m,
+                    Holder = "Alberto Mitroi",
+                    Expiry = new DateTime(2035, 12, 1),
+                    Cvv = "**5",
+                    CurrencyLogo = "USD.png",
+                    ProviderLogo = "citigroup.png"
+                },
+                new
+                {
+                    Id = 2,
+                    UserId = 1,
+                    Currency = "GBP",
+                    Amount = 12102m,
+                    Holder = "Alberto Mitroi",
+                    Expiry = new DateTime(2030, 8, 1),
+                    Cvv = "**9",
+                    CurrencyLogo = "GBP.png",
+                    ProviderLogo = "master card.png"
+                },
+                new
+                {
+                    Id = 3,
+                    UserId = 1,
+                    Currency = "EURO",
+                    Amount = 7382m,
+                    Holder = "Alberto Mitroi",
+                    Expiry = new DateTime(2026, 6, 1),
+                    Cvv = "**2",
+                    CurrencyLogo = "EURO.png",
+                    ProviderLogo = "visa.png"
+                }
             );
         }
     }

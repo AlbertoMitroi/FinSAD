@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinSAD.Persistence.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20250512112435_IntiailCreate")]
+    [Migration("20250512120507_IntiailCreate")]
     partial class IntiailCreate
     {
         /// <inheritdoc />
@@ -59,6 +59,91 @@ namespace FinSAD.Persistence.Migrations
                             Month = 5,
                             UserId = 1,
                             Year = 2025
+                        });
+                });
+
+            modelBuilder.Entity("FinSAD.Domain.Entities.Card", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<string>("CurrencyLogo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cvv")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<DateTime>("Expiry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Holder")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ProviderLogo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cards");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 27119m,
+                            Currency = "USD",
+                            CurrencyLogo = "USD.png",
+                            Cvv = "**5",
+                            Expiry = new DateTime(2035, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Holder = "Alberto Mitroi",
+                            ProviderLogo = "citigroup.png",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 12102m,
+                            Currency = "GBP",
+                            CurrencyLogo = "GBP.png",
+                            Cvv = "**9",
+                            Expiry = new DateTime(2030, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Holder = "Alberto Mitroi",
+                            ProviderLogo = "master card.png",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 7382m,
+                            Currency = "EURO",
+                            CurrencyLogo = "EURO.png",
+                            Cvv = "**2",
+                            Expiry = new DateTime(2026, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Holder = "Alberto Mitroi",
+                            ProviderLogo = "visa.png",
+                            UserId = 1
                         });
                 });
 
@@ -346,10 +431,6 @@ namespace FinSAD.Persistence.Migrations
                         new
                         {
                             Id = 1
-                        },
-                        new
-                        {
-                            Id = 2
                         });
                 });
 
@@ -384,6 +465,14 @@ namespace FinSAD.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FinSAD.Domain.Entities.Card", b =>
+                {
+                    b.HasOne("FinSAD.Domain.Entities.User", null)
+                        .WithMany("Cards")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.FinanceReport", b =>
@@ -547,12 +636,7 @@ namespace FinSAD.Persistence.Migrations
                                 new
                                 {
                                     UserId = 1,
-                                    Address = "john.doe@example.com"
-                                },
-                                new
-                                {
-                                    UserId = 2,
-                                    Address = "jane.smith@example.com"
+                                    Address = "albertomitroi@gmail.com"
                                 });
                         });
 
@@ -576,12 +660,7 @@ namespace FinSAD.Persistence.Migrations
                                 new
                                 {
                                     UserId = 1,
-                                    Hash = "hashed_password_123"
-                                },
-                                new
-                                {
-                                    UserId = 2,
-                                    Hash = "hashed_password_456"
+                                    Hash = "hashed@password@123"
                                 });
                         });
 
@@ -595,6 +674,8 @@ namespace FinSAD.Persistence.Migrations
             modelBuilder.Entity("FinSAD.Domain.Entities.User", b =>
                 {
                     b.Navigation("Budgets");
+
+                    b.Navigation("Cards");
 
                     b.Navigation("Notifications");
 
