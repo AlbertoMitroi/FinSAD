@@ -12,21 +12,20 @@ namespace FinSAD.Api.Controllers
         public async Task<IActionResult> GetCardsByUserId(int userId)
         {
             var cards = await mediator.Send(new GetCardsByUserIdQuery(userId));
-            return Ok(cards);
+
+            return cards?.Count > 0 ?
+                Ok(cards)
+                : NotFound("Cards not found.");
         }
 
         [HttpGet("user/{userId}/history")]
         public async Task<IActionResult> GetCardHistory(int userId)
         {
-            var query = new GetCardHistoryByUserIdQuery(userId);
-            var result = await mediator.Send(query);
+            var cards = await mediator.Send(new GetCardHistoryByUserIdQuery(userId));
 
-            if (result == null || !result.Any())
-            {
-                return NotFound("Cards not found.");
-            }
-
-            return Ok(result);
+            return cards?.Count > 0 ?
+                Ok(cards)
+                : NotFound("Cards not found.");
         }
     }
 }
