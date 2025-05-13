@@ -20,7 +20,7 @@
 
     <p class="danger" *ngIf="error">{{ error }}</p>
 
-    <button class="bg-primary text-white" type="submit">Login</button>
-    <small class="text-muted">Don't have an account? <a routerLink="/dashboard">Register</a></small>
+    <button class="bg-primary text-white" type="submit" routerLink="/dashboard">Login</button>
+    <small class="text-muted">Don't have an account? <a routerLink="/register">Register</a></small>
   </form>
 </section>
