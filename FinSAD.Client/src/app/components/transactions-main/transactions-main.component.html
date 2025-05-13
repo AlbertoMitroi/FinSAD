@@ -1,0 +1,26 @@
+<table class="transactionsTable">
+  <thead>
+    <tr>
+      <th>Transaction ID</th>
+      <th>Date</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Coin</th>
+      <th>Amount</th>
+      <th>Note</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td>{{ transaction.id }}</td>
+      <td>{{ transaction.date }}</td>
+      <td>{{ transaction.from }}</td>
+      <td>{{ transaction.to }}</td>
+      <td>{{ transaction.coin }}</td>
+      <td>{{ transaction.amount }}</td>
+      <td>{{ transaction.note }}</td>
+      <td [ngClass]="transaction.statusClass">{{ transaction.status }}</td>
+    </tr>
+  </tbody>
+</table>

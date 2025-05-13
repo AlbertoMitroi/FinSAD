@@ -1,32 +1,38 @@
+<a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <i class="uil uil-create-dashboard"></i>
+  <h5>Dashboard</h5>
+</a>
 
-    <a href="index.html" class="active">
-      <i class="uil uil-create-dashboard"></i>
-      <h5>Dashboard</h5>
-    </a>
-    <a href="wallet/wallet.html">
-      <i class="uil uil-wallet"></i>
-      <h5>Wallet</h5>
-    </a>
-    <a href="transactions/transactions.html">
-      <i class="uil uil-transaction"></i>
-      <h5>Transactions</h5>
-    </a>
-    <a href="index.html">
-      <i class="uil uil-chart"></i>
-      <h5>Analytics</h5>
-    </a>
-    <a href="index.html">
-      <i class="uil uil-envelopes"></i>
-      <h5>Messages</h5>
-    </a>
-    <a href="index.html">
-      <i class="uil uil-question-circle"></i>
-      <h5>Help</h5>
-    </a>
-    <a href="index.html">
-      <i class="uil uil-setting"></i>
-      <h5>Settings</h5>
-    </a>
-    <button class="sidebar__close-btn">
-      <i class="uil uil-multiply"></i>
-    </button>
+<a routerLink="/wallet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <i class="uil uil-wallet"></i>
+  <h5>Wallet</h5>
+</a>
+
+<a routerLink="/transactions" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <i class="uil uil-transaction"></i>
+  <h5>Transactions</h5>
+</a>
+
+<a routerLink="/analytics" routerLinkActive="active">
+  <i class="uil uil-chart"></i>
+  <h5>Analytics</h5>
+</a>
+
+<a routerLink="/messages" routerLinkActive="active">
+  <i class="uil uil-envelopes"></i>
+  <h5>Messages</h5>
+</a>
+
+<a routerLink="/help" routerLinkActive="active">
+  <i class="uil uil-question-circle"></i>
+  <h5>Help</h5>
+</a>
+
+<a routerLink="/settings" routerLinkActive="active">
+  <i class="uil uil-setting"></i>
+  <h5>Settings</h5>
+</a>
+
+<button class="sidebar__close-btn">
+  <i class="uil uil-multiply"></i>
+</button>

@@ -2,10 +2,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: var(--color-primary);
+    color: var(--color-primary);
 }
 
 .nav__logo {
-    width: 7rem;
+    width: 10rem;
+    background: var(--color-white);
+    padding: 0 0.5rem;
+    border-radius: var(--radius-2);
+    box-shadow: 1px 1px 1px var(--color-white);
 }
 
 .nav__search{
