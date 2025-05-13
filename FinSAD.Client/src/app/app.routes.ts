@@ -11,9 +11,6 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  //{ path: 'dashboard', component: DashboardComponent },
-  //{ path: 'wallet', component: WalletComponent },
-  //{ path: 'transactions', component: TransactionsComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   {
@@ -21,15 +18,12 @@ export const routes: Routes = [
     component: LayoutComponent, // Apply layout component as a wrapper
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'wallet', component: WalletComponent },
-      { path: 'transactions', component: TransactionsComponent },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+      { path: 'wallet', component: WalletComponent, canActivate: [AuthGuard] },
+      { path: 'transactions', component: TransactionsComponent, canActivate: [AuthGuard] },
       // Add more routes that should use the main layout
     ]
   },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'wallet', component: WalletComponent },
-  { path: 'transactions', component: TransactionsComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
 ];
