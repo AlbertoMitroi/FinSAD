@@ -1,27 +1,4 @@
 
-body{
-    background: var(--color-light);
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
-    color: var(--color-gray-dark);
-    display: grid;
-    grid-template-columns: 17rem auto;
-    gap: 2rem;
-    transition: var(--transition);
-    user-select: none;
-}
-
-nav {
-    width: 100vw;
-    background: var(--color-primary);
-    display: grid;
-    place-items: center;
-    height: 4rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-}
 
 .sidebar{
     background: var(--color-primary-light);
