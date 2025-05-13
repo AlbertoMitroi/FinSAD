@@ -5,7 +5,7 @@ body{
     min-height: 100vh;
     color: var(--color-gray-dark);
     display: grid;
-    grid-template-columns: 17rem auto 30rem;
+    grid-template-columns: 17rem auto;
     gap: 2rem;
     transition: var(--transition);
     user-select: none;
@@ -31,6 +31,10 @@ nav {
     border-radius: var(--radius-3);
     flex-direction: column;
     gap: 0.2rem;
+}
+
+.main{
+    margin-top: 5rem;
 }
 
 .main__header{

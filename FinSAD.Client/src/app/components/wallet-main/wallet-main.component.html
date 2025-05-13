@@ -1,0 +1,43 @@
+<section class="wallet">
+  <div class="wallet__balance">
+    <h4>Total Balance <i class="uil uil-eye-slash"></i></h4>
+    <h1>$2,554,642.23</h1>
+
+    <div class="wallet__cta">
+      <a href="#">
+        <i class="uil uil-arrow-up-right"></i>
+        <p>Send</p>
+      </a>
+      <a href="#">
+        <i class="uil uil-arrow-down-right"></i>
+        <p>Receive</p>
+      </a>
+      <a href="#">
+        <i class="uil uil-share"></i>
+        <p>Share</p>
+      </a>
+    </div>
+  </div>
+
+  <ul class="wallet__tokens">
+    <li class="wallet__token" *ngFor="let token of tokens">
+      <div class="wallet__token-left">
+        <div class="wallet__token-image">
+          <img [src]="token.icon" [alt]="token.name" />
+        </div>
+        <div>
+          <h4>{{ token.name }}</h4>
+          <div>
+            <p>{{ token.price }}</p>
+            <small class="danger">{{ token.change }}</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="wallet__token-right">
+        <h4>{{ token.amount }}</h4>
+        <p>{{ token.value }}</p>
+      </div>
+    </li>
+  </ul>
+</section>
