@@ -1,12 +1,13 @@
 ﻿using FinSAD.Domain.Entities;
 using FinSAD.Persistence.Seed;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore; 
+
 using Microsoft.EntityFrameworkCore;
 
 namespace FinSAD.Persistence
 {
-    public class DataDbContext : DbContext
+    public class DataDbContext : IdentityDbContext<User>
     {
-        public DbSet<User> Users { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }

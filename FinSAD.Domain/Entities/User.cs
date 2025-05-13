@@ -1,13 +1,10 @@
 using FinSAD.Domain.ValueObjects;
+using Microsoft.AspNetCore.Identity;
 
 namespace FinSAD.Domain.Entities
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int Id { get; set; }
-        public Email Email { get; set; }
-        public PasswordHash PasswordHash { get; set; }
-
         public ICollection<Transaction> Transactions { get; set; } = [];
         public ICollection<Budget> Budgets { get; set; } = [];
         public ICollection<Notification> Notifications { get; set; } = [];

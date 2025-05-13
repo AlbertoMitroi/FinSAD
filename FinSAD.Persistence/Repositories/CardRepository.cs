@@ -17,7 +17,7 @@ namespace FinSAD.Persistence.Repositories
             var user = await context.Users
                 .Include(u => u.Cards)
                     .ThenInclude(c => c.AmountHistory)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                .FirstOrDefaultAsync(u => int.Parse(u.Id) == userId);
 
             return user?.Cards ?? Enumerable.Empty<Card>();
         }
