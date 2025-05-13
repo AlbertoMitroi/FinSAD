@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FinSAD.Domain.Entities
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
         public ICollection<Transaction> Transactions { get; set; } = [];
         public ICollection<Budget> Budgets { get; set; } = [];

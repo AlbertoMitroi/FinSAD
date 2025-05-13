@@ -1,12 +1,13 @@
 ﻿using FinSAD.Domain.Entities;
 using FinSAD.Persistence.Seed;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore; 
 
 using Microsoft.EntityFrameworkCore;
 
 namespace FinSAD.Persistence
 {
-    public class DataDbContext : IdentityDbContext<User>
+    public class DataDbContext : IdentityDbContext<User, IdentityRole<int>, int>    
     {
         public DbSet<Card> Cards { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
@@ -26,8 +27,6 @@ namespace FinSAD.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Seed();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataDbContext).Assembly);
         }

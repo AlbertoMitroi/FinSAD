@@ -9,7 +9,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'wallet', component: WalletComponent },
   { path: 'transactions', component: TransactionsComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },

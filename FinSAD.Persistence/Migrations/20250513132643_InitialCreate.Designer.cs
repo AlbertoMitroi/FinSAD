@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinSAD.Persistence.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20250512120507_IntiailCreate")]
-    partial class IntiailCreate
+    [Migration("20250513132643_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,16 +50,6 @@ namespace FinSAD.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Budgets");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Month = 5,
-                            UserId = 1,
-                            Year = 2025
-                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.Card", b =>
@@ -107,44 +97,33 @@ namespace FinSAD.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Cards");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Amount = 27119m,
-                            Currency = "USD",
-                            CurrencyLogo = "USD.png",
-                            Cvv = "**5",
-                            Expiry = new DateTime(2035, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Holder = "Alberto Mitroi",
-                            ProviderLogo = "citigroup.png",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Amount = 12102m,
-                            Currency = "GBP",
-                            CurrencyLogo = "GBP.png",
-                            Cvv = "**9",
-                            Expiry = new DateTime(2030, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Holder = "Alberto Mitroi",
-                            ProviderLogo = "master card.png",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Amount = 7382m,
-                            Currency = "EURO",
-                            CurrencyLogo = "EURO.png",
-                            Cvv = "**2",
-                            Expiry = new DateTime(2026, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Holder = "Alberto Mitroi",
-                            ProviderLogo = "visa.png",
-                            UserId = 1
-                        });
+            modelBuilder.Entity("FinSAD.Domain.Entities.CardAmountHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.ToTable("CardAmountHistory");
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.Category", b =>
@@ -165,26 +144,6 @@ namespace FinSAD.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsCustom = false,
-                            Name = "Groceries"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsCustom = false,
-                            Name = "Entertainment"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsCustom = true,
-                            Name = "Custom Category"
-                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.FinanceReport", b =>
@@ -213,16 +172,6 @@ namespace FinSAD.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("FinanceReports");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndDate = new DateTime(2025, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Format = "Pdf",
-                            StartDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.FinancialGoal", b =>
@@ -243,14 +192,6 @@ namespace FinSAD.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FinancialGoals");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Deadline = new DateTime(2025, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Vacation Fund"
-                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.Notification", b =>
@@ -284,17 +225,6 @@ namespace FinSAD.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Message = "You have a new transaction.",
-                            Status = "Unread",
-                            Timestamp = new DateTime(2025, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Type = "Info",
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.PaymentMethod", b =>
@@ -317,20 +247,6 @@ namespace FinSAD.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PaymentMethods");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Type = "CreditCard",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Type = "Cash",
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.RecurringTransaction", b =>
@@ -354,15 +270,6 @@ namespace FinSAD.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RecurringTransactions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndDate = new DateTime(2025, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Frequency = "Monthly",
-                            StartDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.Transaction", b =>
@@ -401,18 +308,6 @@ namespace FinSAD.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Description = "Bought groceries at Walmart",
-                            Name = "Grocery Shopping",
-                            PaymentMethodId = 1,
-                            TransactionKind = "Expense",
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.User", b =>
@@ -423,15 +318,197 @@ namespace FinSAD.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1
-                        });
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.Budget", b =>
@@ -453,12 +530,6 @@ namespace FinSAD.Persistence.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("BudgetId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    BudgetId = 1
-                                });
                         });
 
                     b.Navigation("Limit")
@@ -473,6 +544,17 @@ namespace FinSAD.Persistence.Migrations
                         .WithMany("Cards")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FinSAD.Domain.Entities.CardAmountHistory", b =>
+                {
+                    b.HasOne("FinSAD.Domain.Entities.Card", "Card")
+                        .WithMany("AmountHistory")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.FinanceReport", b =>
@@ -499,12 +581,6 @@ namespace FinSAD.Persistence.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("FinancialGoalId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    FinancialGoalId = 1
-                                });
                         });
 
                     b.OwnsOne("FinSAD.Domain.ValueObjects.Money", "TargetAmount", b1 =>
@@ -518,12 +594,6 @@ namespace FinSAD.Persistence.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("FinancialGoalId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    FinancialGoalId = 1
-                                });
                         });
 
                     b.Navigation("CurrentAmount");
@@ -576,12 +646,6 @@ namespace FinSAD.Persistence.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("TransactionId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    TransactionId = 1
-                                });
                         });
 
                     b.OwnsOne("FinSAD.Domain.ValueObjects.Location", "Location", b1 =>
@@ -595,12 +659,6 @@ namespace FinSAD.Persistence.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("TransactionId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    TransactionId = 1
-                                });
                         });
 
                     b.Navigation("Amount")
@@ -614,61 +672,60 @@ namespace FinSAD.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FinSAD.Domain.Entities.User", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.OwnsOne("FinSAD.Domain.ValueObjects.Email", "Email", b1 =>
-                        {
-                            b1.Property<int>("UserId")
-                                .HasColumnType("int");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                            b1.Property<string>("Address")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("FinSAD.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                            b1.HasKey("UserId");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("FinSAD.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                            b1.ToTable("Users");
-
-                            b1.WithOwner()
-                                .HasForeignKey("UserId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    UserId = 1,
-                                    Address = "albertomitroi@gmail.com"
-                                });
-                        });
-
-                    b.OwnsOne("FinSAD.Domain.ValueObjects.PasswordHash", "PasswordHash", b1 =>
-                        {
-                            b1.Property<int>("UserId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Hash")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("UserId");
-
-                            b1.ToTable("Users");
-
-                            b1.WithOwner()
-                                .HasForeignKey("UserId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    UserId = 1,
-                                    Hash = "hashed@password@123"
-                                });
-                        });
-
-                    b.Navigation("Email")
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PasswordHash")
+                    b.HasOne("FinSAD.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("FinSAD.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FinSAD.Domain.Entities.Card", b =>
+                {
+                    b.Navigation("AmountHistory");
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.User", b =>

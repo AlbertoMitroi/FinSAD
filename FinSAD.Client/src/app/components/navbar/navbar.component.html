@@ -14,8 +14,15 @@
       <div class="nav__profile-photo">
         <img src="profile-1.jpg" alt="Profile Photo" />
       </div>
-      <h5>Alberto Mitroi</h5>
-      <i class="uil uil-angle-down"></i>
+      <div class="dropdown">
+        <button class="dropdown-toggle" (click)="toggleDropdown()">
+          <h5>{{ userName }}</h5>
+          <i class="uil uil-angle-down"></i>
+        </button>
+        <div *ngIf="dropdownOpen" class="dropdown-menu">
+          <button class="dropdown-item" (click)="logout()">Logout</button>
+        </div>
+      </div>
     </div>
     <button class="nav__menu-btn">
       <i class="uil uil-bars"></i>

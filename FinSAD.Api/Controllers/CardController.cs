@@ -1,5 +1,6 @@
 ﻿using FinSAD.Application.Features.Cards.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinSAD.Api.Controllers
@@ -18,6 +19,7 @@ namespace FinSAD.Api.Controllers
                 : NotFound("Cards not found.");
         }
 
+        [Authorize]
         [HttpGet("user/{userId}/history")]
         public async Task<IActionResult> GetCardHistory(int userId)
         {

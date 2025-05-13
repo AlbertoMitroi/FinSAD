@@ -10,9 +10,18 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
+    const token = this.authService.getToken();
+
+    if (token) {
+      console.log('Token JWT găsit:', token);
+    } else {
+      console.log('Token JWT nu este salvat.');
+    }
+
     if (this.authService.isAuthenticated()) {
       return true;
     } else {
+      console.log('Accesul a fost refuzat. Utilizatorul nu este autentificat.');
       this.router.navigate(['/login']);
       return false;
     }
