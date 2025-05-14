@@ -193,3 +193,23 @@ small {
 button{
     cursor: pointer;
 }
+
+.swal2-dark {
+  background-color: #1e1e2f !important;
+  color: #fff !important;
+}
+
+.swal2-dark .swal2-input {
+  background: #2c2c3e;
+  color: #fff;
+  border: 1px solid #444;
+}
+.swal2-dark {
+  background-color: #1e1e2f !important;
+  color: #fff !important;
+}
+
+.swal2-dark .swal2-title,
+.swal2-dark .swal2-content {
+  color: #fff !important;
+}

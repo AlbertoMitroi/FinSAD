@@ -19,7 +19,7 @@ export class CardsComponent implements OnInit {
 ngOnInit() {
   this.cardsService.getCards().subscribe({
     next: (data) => {
-      this.cards = data;
+      this.cards = [data[0]];
       this.displayCards = this.cards.slice(0, 3);
       const placeholdersNeeded = 3 - this.displayCards.length;
       for (let i = 0; i < placeholdersNeeded; i++) {
