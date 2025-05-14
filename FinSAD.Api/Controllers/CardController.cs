@@ -1,4 +1,6 @@
-﻿using FinSAD.Application.Features.Cards.Queries;
+﻿using FinSAD.Application.DTOs;
+using FinSAD.Application.Features.Cards.Commands;
+using FinSAD.Application.Features.Cards.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +9,7 @@ namespace FinSAD.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CardController(IMediator mediator) : ControllerBase
     {
         [HttpGet("user/{userId}")]
@@ -19,7 +22,6 @@ namespace FinSAD.Api.Controllers
                 : NotFound("Cards not found.");
         }
 
-        [Authorize]
         [HttpGet("user/{userId}/history")]
         public async Task<IActionResult> GetCardHistory(int userId)
         {
@@ -28,6 +30,26 @@ namespace FinSAD.Api.Controllers
             return cards?.Count > 0 ?
                 Ok(cards)
                 : NotFound("Cards not found.");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCard([FromBody] CardPostDto cardPostDto, int userId)
+        {
+            if (cardPostDto == null)
+            {
+                return BadRequest("Invalid card data.");
+            }
+
+            var result = await mediator.Send(new AddCardCommand(cardPostDto, userId));
+
+            return CreatedAtAction(nameof(GetCardsByUserId), new { userId = result.Holder }, result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCard(int id)
+        {
+            await mediator.Send(new DeleteCardCommand(id));
+            return NoContent();
         }
     }
 }

@@ -19,11 +19,12 @@ export class CardsComponent implements OnInit {
 ngOnInit() {
   this.cardsService.getCards().subscribe({
     next: (data) => {
-      this.cards = [data[0]];
+      this.cards = data;
       this.displayCards = this.cards.slice(0, 3);
       const placeholdersNeeded = 3 - this.displayCards.length;
       for (let i = 0; i < placeholdersNeeded; i++) {
         this.displayCards.push({
+          id: 0,
           currency: '',
           amount: '',
           holder: 'No card added',

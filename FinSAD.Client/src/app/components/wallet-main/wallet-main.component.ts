@@ -89,9 +89,12 @@ export class WalletMainComponent {
       }
     });
   }
+
   deleteCard(index: number) {
     const savedTheme = localStorage.getItem('theme');
     const customClass = savedTheme === 'dark' ? 'swal2-dark' : '';
+
+    const cardId = this.tokens[index].id;
 
     Swal.fire({
       title: 'Are you sure?',
@@ -107,15 +110,138 @@ export class WalletMainComponent {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.tokens.splice(index, 1);
-        this.calculateTotalBalance(this.tokens);
+        this.cardsService.deleteCardById(cardId).subscribe({
+          next: () => {
+            this.tokens.splice(index, 1);
+            this.calculateTotalBalance(this.tokens);
 
-        Swal.fire({
-          title: 'Deleted!',
-          text: 'The card has been deleted.',
-          icon: 'success',
-          customClass: {
-            popup: customClass,
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'The card has been deleted.',
+              icon: 'success',
+              customClass: {
+                popup: customClass,
+              },
+            });
+          },
+          error: () => {
+            Swal.fire({
+              title: 'Error!',
+              text: 'Failed to delete the card.',
+              icon: 'error',
+              customClass: {
+                popup: customClass,
+              },
+            });
+          },
+        });
+      }
+    });
+  }
+
+  addCard() {
+    const savedTheme = localStorage.getItem('theme');
+    const customClass = savedTheme === 'dark' ? 'swal2-dark' : '';
+
+    Swal.fire({
+      title: 'Add New Card',
+      html: `
+      <input id="swal-input1" class="swal2-input" placeholder="Currency">
+      <input id="swal-input2" class="swal2-input" placeholder="Amount">
+      <input id="swal-input3" class="swal2-input" placeholder="Holder">
+      <input id="swal-input4" type="date" class="swal2-input" placeholder="Expiry">
+      <input id="swal-input5" class="swal2-input" placeholder="CVV">
+      <select id="swal-input6" class="swal2-input">
+        <option value="" disabled selected>Select Currency Logo</option>
+        <option value="EURO.png">EUR</option>
+        <option value="GBP.png">GBP</option>
+        <option value="USD.png">USD</option>
+      </select>
+      <select id="swal-input7" class="swal2-input">
+        <option value="" disabled selected>Select Provider Logo</option>
+        <option value="visa.png">Visa</option>
+        <option value="master card.png">MasterCard</option>
+        <option value="citigroup.png">CitiGroup</option>
+      </select>
+    `,
+      customClass: {
+        popup: customClass,
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Add',
+      preConfirm: () => {
+        const currency = (
+          document.getElementById('swal-input1') as HTMLInputElement
+        ).value;
+        const amount = parseFloat(
+          (document.getElementById('swal-input2') as HTMLInputElement).value
+        );
+        const holder = (
+          document.getElementById('swal-input3') as HTMLInputElement
+        ).value;
+        const expiry = (
+          document.getElementById('swal-input4') as HTMLInputElement
+        ).value;
+        const cvv = (document.getElementById('swal-input5') as HTMLInputElement)
+          .value;
+        const currencyLogo = (
+          document.getElementById('swal-input6') as HTMLSelectElement
+        ).value;
+        const providerLogo = (
+          document.getElementById('swal-input7') as HTMLSelectElement
+        ).value;
+
+        if (
+          !currency ||
+          isNaN(amount) ||
+          !holder ||
+          !expiry ||
+          !cvv ||
+          !currencyLogo ||
+          !providerLogo
+        ) {
+          Swal.showValidationMessage(
+            'Please fill in all required fields correctly.'
+          );
+          return;
+        }
+
+        if (currency.length > 4) {
+          Swal.showValidationMessage('Currency must be 4 characters or less');
+          return;
+        }
+
+        return {
+          currency,
+          amount,
+          holder,
+          expiry,
+          cvv,
+          currencyLogo,
+          providerLogo,
+        };
+      },
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        const newCard = result.value;
+
+        this.cardsService.addCard(newCard).subscribe({
+          next: (card) => {
+            this.tokens.push(card);
+            this.totalBalance = this.calculateTotalBalance(this.tokens);
+            Swal.fire('Success', 'Card added successfully!', 'success');
+            this.cardsService.getCards().subscribe({
+              next: (cards) => {
+                this.tokens = cards;
+                this.totalBalance = this.calculateTotalBalance(cards);
+              },
+              error: (err) =>
+                console.error('Eroare la preluarea cardurilor:', err),
+            });
+          },
+          error: (err) => {
+            console.error(err);
+            Swal.fire('Error', 'Failed to add card.', 'error');
           },
         });
       }

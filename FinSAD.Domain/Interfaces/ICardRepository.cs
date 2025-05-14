@@ -6,9 +6,9 @@ namespace FinSAD.Domain.Interfaces
     {
         Task<Card?> GetByIdAsync(int id);
         Task<IEnumerable<Card>> GetAllByUserIdAsync(int userId);
-        Task AddAsync(Card card);
+        Task AddAsync(Card card, int userId, CancellationToken cancellationToken);
         Task UpdateAsync(Card card);
-        Task DeleteAsync(Card card);
+        Task DeleteAsync(int id, CancellationToken cancellationToken);
         Task<bool> ExistsAsync(int id);
     }
 }

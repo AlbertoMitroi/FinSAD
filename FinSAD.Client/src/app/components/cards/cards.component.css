@@ -84,3 +84,7 @@
     display: flex;
     gap: 2rem;
 }
+
+.card-placeholder i{
+    font-size: 5rem;
+}

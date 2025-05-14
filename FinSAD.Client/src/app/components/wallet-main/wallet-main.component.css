@@ -96,6 +96,7 @@ body {
 .wallet__token.wallet__token--add{
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .wallet__token.wallet__token--add i{
