@@ -51,5 +51,18 @@ namespace FinSAD.Api.Controllers
             await mediator.Send(new DeleteCardCommand(id));
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCard(int id, [FromBody] CardPutDto cardPutDto)
+        {
+            if (cardPutDto == null || cardPutDto.Id != id)
+            {
+                return BadRequest("Invalid card data.");
+            }
+
+            await mediator.Send(new UpdateCardCommand(cardPutDto));
+            return NoContent(); 
+        }
+
     }
 }
