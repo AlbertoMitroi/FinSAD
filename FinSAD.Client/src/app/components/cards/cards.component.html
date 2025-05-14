@@ -1,5 +1,5 @@
 <section class="main__cards">
-    <article class="card" *ngFor="let card of cards">
+    <article class="card" routerLink="/wallet" *ngFor="let card of cards" >
       <div class="card__header">
         <div class="card__header-left">
           <img [src]="card.currencyLogo" [alt]="card.currency" />

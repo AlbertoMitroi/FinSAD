@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CardsService } from '../../services/cards.service';
 import { CardModel } from '../../models/CardModels';
 import { NgFor } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
-  imports: [NgFor],
+  imports: [NgFor, RouterModule],
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
 })
