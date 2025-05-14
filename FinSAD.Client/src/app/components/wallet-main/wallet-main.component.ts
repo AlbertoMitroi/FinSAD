@@ -1,37 +1,34 @@
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import { CardsService } from '../../services/cards.service';
+import { CardModel } from '../../models/CardModels';
 
 @Component({
   selector: 'app-wallet-main',
-  imports: [NgFor],
+  imports: [NgFor, CommonModule],
   templateUrl: './wallet-main.component.html',
   styleUrl: './wallet-main.component.css'
 })
 export class WalletMainComponent {
-  tokens = [
-    {
-      name: 'USD',
-      amount: '1 BTC',
-      value: '$104,643',
-      price: '$104,430',
-      icon: 'USD.png',
-      change: '-'
-    },
-    {
-      name: 'BGP',
-      amount: '3 ETH',
-      value: '$9,700',
-      price: '$3,233',
-      icon: 'GBP.png',
-      change: '+'
-    },
-    {
-      name: 'EURO',
-      amount: '15 LTC',
-      value: '$1,500',
-      price: '$100',
-      icon: 'EURO.png',
-      change: '+'
-    }
-  ];
+  tokens: CardModel[] = [];
+  totalBalance: number = 0;
+
+  constructor(private cardsService: CardsService) {}
+
+  ngOnInit(): void {
+    this.cardsService.getCards().subscribe({
+      next: (cards) => {
+        this.tokens = cards;
+        this.totalBalance = this.calculateTotalBalance(cards);
+      },
+      error: (err) => console.error('Eroare la preluarea cardurilor:', err)
+    });
+  }
+
+  private calculateTotalBalance(cards: CardModel[]): number {
+    return cards.reduce((sum, card) => {
+      const numeric = Number(card.amount.replace(/[^0-9.-]+/g, '').replace(',', ''));
+      return sum + (isNaN(numeric) ? 0 : numeric);
+    }, 0);
+  }
 }
