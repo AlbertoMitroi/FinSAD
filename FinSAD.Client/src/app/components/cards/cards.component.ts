@@ -11,11 +11,18 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
-  cards: CardModel[] = [];
+cards: CardModel[] = [];
 
-  constructor(private cardsService: CardsService) {}
+constructor(private cardsService: CardsService) {}
 
-  ngOnInit(): void {
-    this.cards = this.cardsService.getCards();
-  }
+ngOnInit() {
+  this.cardsService.getCards().subscribe({
+    next: (data) => {
+      this.cards = data;
+    },
+    error: (err) => {
+      console.error('Failed to fetch cards:', err);
+    }
+  });
+}
 }
