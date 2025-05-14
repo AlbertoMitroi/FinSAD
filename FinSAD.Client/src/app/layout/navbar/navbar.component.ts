@@ -10,7 +10,7 @@ import { NgClass, NgIf } from '@angular/common';
 })
 export class NavbarComponent implements OnInit {
   isDarkTheme = false;
-  userName: string = 'Alberto Mitroi';
+  userName: string = '';
   dropdownOpen = false;
 
   constructor(private renderer: Renderer2, private authService: AuthService) {}
@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
     this.updateThemeClass();
 
     
-    const user = localStorage.getItem('username');  
+    const user = localStorage.getItem('name');  
     this.userName = user ? user : 'Utilizator';
   }
 

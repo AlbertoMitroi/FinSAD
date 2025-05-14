@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +11,30 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, credentials);
+  login(data: { email: string; password: string }): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl}/login`, data).pipe(
+    tap(response => {
+      if (response.token && response.userId && response.name) {
+        this.saveAuthData(response.token, response.userId, response.name);
+      }
+    })
+  );
   }
-
-  register(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, data);
+ 
+  register(data: { username: string; email: string; password: string }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/register`, data).pipe(
+      tap(response => {
+        if (response.token && response.userId && response.name) {
+          this.saveAuthData(response.token, response.userId, response.name);
+        }
+      })
+    );
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('name');
     this.router.navigate(['/login']); 
   }
 
@@ -28,8 +42,22 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  saveAuthData(token: string, userId: number, name: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('userId', userId.toString());
+    localStorage.setItem('name', name);
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
+  getUserName(): string | null {
+    return localStorage.getItem('name');
   }
 
   isAuthenticated(): boolean {

@@ -26,7 +26,7 @@ export class LoginComponent {
 
     this.auth.login(this.form.value).subscribe({
       next: (res: any) => {
-        this.auth.saveToken(res.token);
+        this.auth.saveAuthData(res.token, res.userId, res.name);
         this.router.navigate(['/dashboard']);
       },
       error: () => {
