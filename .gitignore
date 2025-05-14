@@ -309,3 +309,5 @@ __pycache__/
 /FinSAD.Infrastructure/obj/FinSAD.Infrastructure.csproj.nuget.g.targets
 /FinSAD.Infrastructure/obj/project.assets.json
 /FinSAD.Infrastructure/obj/project.nuget.cache
+FinSAD.Api/appsettings.Development.json
+FinSAD.Persistence/DesignTimeDbContextFactory.cs

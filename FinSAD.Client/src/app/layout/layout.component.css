@@ -16,6 +16,7 @@
   background: var(--color-primary-light);
   padding-top: 5rem;
   min-height: calc(100vh - 5rem);
+  width:18rem;
   display: flex;
   height:100vh;
   border-radius: var(--radius-3);
@@ -35,5 +36,8 @@ nav {
   z-index: 10;
 }
 .main-content {
-    height: calc(100vh - 4rem);
+  margin-top: 4rem;
+  padding: 20px;
+  height: calc(100vh - 4rem);
+  width: calc(100vw - 18rem);
 }

@@ -9,7 +9,6 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-top: 6rem;
 }
 
 .header input[type="date"] {

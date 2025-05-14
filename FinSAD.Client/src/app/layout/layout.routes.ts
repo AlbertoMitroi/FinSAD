@@ -5,6 +5,7 @@ import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 //import { AuthGuard } from './guards/auth.guard';
 import { WalletComponent } from '../pages/wallet/wallet.component';
 import { TransactionsComponent } from '../pages/transactions/transactions.component';
+import { CategoriesComponent } from '../pages/categories/categories.component';
 
 export const routes: Routes = [
   //{ path: 'login', component: LoginComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'wallet', component: WalletComponent },
   { path: 'transactions', component: TransactionsComponent },
+  { path: 'categories', component: CategoriesComponent }
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   //{ path: '**', redirectTo: 'login' },
 ];

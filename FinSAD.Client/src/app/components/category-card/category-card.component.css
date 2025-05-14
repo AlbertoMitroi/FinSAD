@@ -1,19 +1,19 @@
-.card {
+
+.category-card-container {
   width: 225px;
   height: 250px;
-  display: flex;
-  flex-direction: column;
   border-radius: var(--radius-2);
   background: var(--color-white);
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
-  transition: var(--transition);
+  box-shadow: 0 0.8rem 1rem rgba(0,0,0,0.05);
+  transition: transform 0.2s;
 }
 
-.category-card {
-  transition: var(--transition);
-  background: var(--color-white);
-  border-radius: var(--radius-2);
-  box-shadow: 0 0.8rem 1rem rgba(0,0,0,0.05);
+.category-card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding:4px;
 }
 
   .category-card:hover {
@@ -21,14 +21,29 @@
   }
 
 .category-icon {
-  font-size: 2rem;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
   border-radius: 50%;
-  padding: 0.75rem;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
   color: var(--color-primary);
   background-color: var(--color-primary-light);
+}
+
+.section{
+    display:flex;
+    flex-direction:column;
+}
+
+.text-section {
+  height: 100%;
+  display: flex;
+  flex-direction:column;
+  align-items: start;
+  padding-top:2rem;
 }
 
 .amount {
@@ -38,6 +53,6 @@
 }
 
 .description {
-  font-size: 0.86rem;
+  font-size: 1.15rem;
   color: var(--color-gray-light);
 }

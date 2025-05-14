@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { WalletComponent } from './pages/wallet/wallet.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { LayoutComponent } from './layout/layout.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
 
 export const routes: Routes = [
 
@@ -21,6 +22,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
       { path: 'wallet', component: WalletComponent, canActivate: [AuthGuard] },
       { path: 'transactions', component: TransactionsComponent, canActivate: [AuthGuard] },
+      { path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard] },
       // Add more routes that should use the main layout
     ]
   },
