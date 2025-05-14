@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     const token = this.authService.getToken();
 
     if (token) {
-      console.log('Token JWT găsit:', token);
+      console.log('Token JWT găsit:');
     } else {
       console.log('Token JWT nu este salvat.');
     }

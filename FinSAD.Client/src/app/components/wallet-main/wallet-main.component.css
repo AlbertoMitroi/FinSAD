@@ -87,6 +87,10 @@ body {
   border-radius: var(--radius-3);
 }
 
+.wallet__token-right .wallet__token-image{
+  background: none;
+}
+
 .wallet__token-left > div {
   display: flex;
   flex-direction: column;
