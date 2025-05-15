@@ -15,7 +15,7 @@ export class CategoriesComponent implements OnInit {
   categories: CategoryModel[] = [];
   notFound = false;
   newCategory = { title: '', description: '' };
-  showAddForm = false; // <-- Add this flag
+  showAddForm = false;
 
   onShowAddForm() {
     this.showAddForm = true;
@@ -46,18 +46,16 @@ export class CategoriesComponent implements OnInit {
   }
 
   onAddCategory() {
-    if (!this.newCategory.title || !this.newCategory.description) return;
-    this.categoriesService.addCategory(this.newCategory).subscribe({
-      next: (category) => {
-        this.categories.push(category);
-        this.notFound = false;
-        this.newCategory = { title: '', description: '' };
-      },
-      error: (err) => {
-        // Optionally handle error
-      }
-    });
-  }
+  if (!this.newCategory.title || !this.newCategory.description) return;
+  this.categoriesService.addCategory(this.newCategory).subscribe({
+    next: (category) => {
+      this.categories.push(category);
+      this.notFound = false;
+      this.newCategory = { title: '', description: '' };
+      this.showAddForm = false;
+    },
+  });
+}
 
   trackByFn(index: number, item: CategoryModel): number {
     return index;
