@@ -11,7 +11,7 @@ namespace FinSAD.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AccountController(UserManager<User> userManager, IConfiguration config) : ControllerBase
+public class AccountsController(UserManager<User> userManager, IConfiguration config) : ControllerBase
 {
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)

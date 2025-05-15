@@ -3,6 +3,6 @@
       <button class="add-button">
         <i class="uil uil-plus"></i>
       </button>
-      <category-card></category-card>
+      <category-card *ngFor="let category of categories; trackBy: trackByFn" [category]="category"></category-card>
     </div>
 </div>

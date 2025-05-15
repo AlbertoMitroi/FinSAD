@@ -7,7 +7,7 @@ namespace FinSAD.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CardController(IMediator mediator) : ControllerBase
+    public class CardsController(IMediator mediator) : ControllerBase
     {
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetCardsByUserId(int userId)
