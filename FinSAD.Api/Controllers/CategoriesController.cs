@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
-using FinSAD.Application.Features.Categories.Commands;
+// using FinSAD.Application.Features.Categories.Commands;
+using FinSAD.Application.Features.Categories.Commands; // Update this to the correct namespace if different
 using FinSAD.Application.Features.Categories.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,7 @@ public class CategoriesController : ControllerBase
     [HttpGet("/categories")]
     public async Task<IActionResult> GetCategoriesByUserId(int userId)
     {
-        var categories = await mediator.Send(new GetCategoriesByUserIdQuery(userId));
+        var categories = await _mediator.Send(new GetCategoriesByUserIdQuery(userId));
             return categories?.Count > 0 ?
                 Ok(categories)
                 : NotFound("Categories not found.");

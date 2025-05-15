@@ -27,10 +27,19 @@ namespace FinSAD.Persistence.Repositories
             return user?.Categories ?? Enumerable.Empty<Category>();
         }
 
-        public async Task AddAsync(Category category)
+        public async Task AddAsync(Category category, int userId, CancellationToken cancellationToken)
         {
-            await context.Categories.AddAsync(category);
-            await context.SaveChangesAsync();
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+
+            if(user == null) throw new Exception("User not found for adding category");
+
+            user.Categories.Add(new Category{
+                Title = category.Title,
+                Description = category.Description,
+            });
+
+            context.Update(user);
+            await context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task UpdateAsync(Category category)

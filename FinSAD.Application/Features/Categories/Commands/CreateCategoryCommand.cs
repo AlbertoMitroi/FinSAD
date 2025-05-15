@@ -1,41 +1,31 @@
 
 
-// namespace FinSAD.Application.Features.Categories.Commands;
-// @@ -0,0 +1,39 @@
-// using System;
-// using FinSAD.Application.DTOs;
-// using FinSAD.Domain.Entities;
-// using FinSAD.Domain.Interfaces;
-// using MediatR;
-// public sealed record AddCardCommand(CardPostDto CardPostDto, int userId) : IRequest<CardDto>;
-// public class AddCardCommandHandler(
-//     ICardRepository cardRepository
-// ) : IRequestHandler<AddCardCommand, CardDto>
-// {
-//     public async Task<CardDto> Handle(AddCardCommand request, CancellationToken cancellationToken)
-//     {
-//         var card = new Card
-//         {
-//             Currency = request.CardPostDto.Currency,
-//             Amount = request.CardPostDto.Amount,
-//             Holder = request.CardPostDto.Holder,
-//             Expiry = request.CardPostDto.Expiry,
-//             Cvv = request.CardPostDto.Cvv,
-//             CurrencyLogo = request.CardPostDto.CurrencyLogo,
-//             ProviderLogo = request.CardPostDto.ProviderLogo
-//         };
+namespace FinSAD.Application.Features.Categories.Commands;
+using System;
+using FinSAD.Application.DTOs;
+using FinSAD.Domain.Entities;
+using FinSAD.Domain.Interfaces;
+using MediatR;
+public sealed record CreateCategoryCommand(CategoryPostDto CategoryPostDto, int userId) : IRequest<CategoryDto>;
+public class CreateCategoryCommandHandler(
+    ICategoryRepository categoryRepository
+) : IRequestHandler<CreateCategoryCommand, CategoryDto>
+{
+    public async Task<CategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+    {
+        var category = new Category
+        {
+            Title = request.CategoryPostDto.Title,
+            Description = request.CategoryPostDto.Description,
+        };
 
-//         await cardRepository.AddAsync(card, request.userId, cancellationToken);
+        await categoryRepository.AddAsync(category, request.userId, cancellationToken);
 
-//         return new CardDto
-//         {
-//             Currency = card.Currency,
-//             Amount = card.Amount.ToString(),
-//             Holder = card.Holder,
-//             Expiry = card.Expiry.ToString("yyyy-MM-dd HH:mm:ss"),
-//             Cvv = card.Cvv,
-//             CurrencyLogo = card.CurrencyLogo,
-//             ProviderLogo = card.ProviderLogo
-//         };
-//     }
-// }
+        return new CategoryDto
+        {
+            Id = category.Id,
+            Title = category.Title,
+            Description = category.Description,
+        };
+    }
+}

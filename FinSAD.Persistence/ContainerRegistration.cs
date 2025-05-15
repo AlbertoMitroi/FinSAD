@@ -9,6 +9,10 @@ namespace FinSAD.Persistence
         public static void RegisterRepositories(this IServiceCollection services)
         {
             services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
         }
+        
+
     }
 }
