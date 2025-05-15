@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using FinSAD.Application.Categories.Commands;
-using FinSAD.Application.Categories.Queries;
+using FinSAD.Application.Features.Categories.Commands;
+using FinSAD.Application.Features.Categories.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,20 +19,13 @@ public class CategoriesController : ControllerBase
     [HttpGet("/categories")]
     public async Task<IActionResult> GetCategoriesByUserId(int userId)
     {
-        var categories = await mediator.Send(new GetCategoriesByUserIdQuery(userId);
+        var categories = await mediator.Send(new GetCategoriesByUserIdQuery(userId));
             return categories?.Count > 0 ?
                 Ok(categories)
                 : NotFound("Categories not found.");
     }
 
-    //public async Task<IActionResult> GetCardsByUserId(int userId)
-    //{
-    //    var cards = await mediator.Send(new GetCardsByUserIdQuery(userId));
-
-    //    return cards?.Count > 0 ?
-    //        Ok(cards)
-    //        : NotFound("Cards not found.");
-    //}
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Create(CreateCategoryCommand command)
     {

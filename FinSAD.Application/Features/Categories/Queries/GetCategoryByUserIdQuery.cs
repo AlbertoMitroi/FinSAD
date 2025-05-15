@@ -11,13 +11,12 @@ namespace FinSAD.Application.Features.Categories.Queries
     {
         public async Task<List<CategoryDto>> Handle(GetCategoriesByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var cards = await categoryRepository.GetAllByUserIdAsync(request.userId);
+            var category = await categoryRepository.GetAllByUserIdAsync(request.userId);
 
-            var categoryDtos = cards.Select(card => new CategoryDto
+            var categoryDtos = category.Select(category => new CategoryDto
             {
                 Title = category.Title,
                 Description = category.Description.ToString(),
-                IsCustom = category.IsCustom,
             }).ToList();
 
             return categoryDtos ?? [];

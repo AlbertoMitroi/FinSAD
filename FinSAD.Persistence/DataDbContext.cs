@@ -1,5 +1,4 @@
 ﻿using FinSAD.Domain.Entities;
-using FinSAD.Persistence.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 

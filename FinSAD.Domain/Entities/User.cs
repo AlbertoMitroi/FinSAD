@@ -10,6 +10,8 @@ namespace FinSAD.Domain.Entities
         public ICollection<Notification> Notifications { get; set; } = [];
         public ICollection<PaymentMethod> PaymentMethods { get; set; } = [];
         public ICollection<Card> Cards { get; set; } = [];
+        public ICollection<Category> Categories { get; set; } = [];
+
 
         public void Register() { }
         public void Login() { }

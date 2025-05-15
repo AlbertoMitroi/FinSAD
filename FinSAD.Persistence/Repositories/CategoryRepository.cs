@@ -1,10 +1,13 @@
 using FinSAD.Domain.Entities;
+using FinSAD.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using FinSAD.Domain.Interfaces;
 using FinSAD.Application.DTOs;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+// Ensure the correct namespace for ICategoryRepository is included above.
+// If ICategoryRepository is not defined, create it in FinSAD.Domain.Interfaces or the appropriate location.
 
 namespace FinSAD.Persistence.Repositories
 {
@@ -19,7 +22,6 @@ namespace FinSAD.Persistence.Repositories
         {
             var user = await context.Users
                 .Include(u => u.Categories)
-                    .ThenInclude(c => c.AmountHistory)
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             return user?.Categories ?? Enumerable.Empty<Category>();
