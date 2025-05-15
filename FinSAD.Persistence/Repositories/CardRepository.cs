@@ -26,9 +26,10 @@ namespace FinSAD.Persistence.Repositories
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
 
-            if(user == null) throw new Exception("User not found for adding card");
+            if (user == null) throw new Exception("User not found for adding card");
 
-            user.Cards.Add(new Card{
+            user.Cards.Add(new Card
+            {
                 Amount = card.Amount,
                 AmountHistory = card.AmountHistory,
                 Currency = card.Currency,
@@ -43,16 +44,29 @@ namespace FinSAD.Persistence.Repositories
             await context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(Card card)
+        public async Task UpdateAsync(Card card, CancellationToken cancellationToken)
         {
-            context.Cards.Update(card);
-            await context.SaveChangesAsync();
+            var existing = await context.Cards.FirstOrDefaultAsync(c => c.Id == card.Id, cancellationToken);
+
+            if (existing == null)
+                throw new Exception("Card not found for update");
+
+            existing.Currency = card.Currency;
+            existing.Amount = card.Amount;
+            existing.Holder = card.Holder;
+            existing.Expiry = card.Expiry;
+            existing.Cvv = card.Cvv;
+            existing.CurrencyLogo = card.CurrencyLogo;
+            existing.ProviderLogo = card.ProviderLogo;
+
+            context.Cards.Update(existing);
+            await context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
             var card = await context.Cards.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
-            if(card == null) throw new Exception("User not found for adding card");
+            if (card == null) throw new Exception("User not found for adding card");
 
             context.Cards.Remove(card);
             await context.SaveChangesAsync();

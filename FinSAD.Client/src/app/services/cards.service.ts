@@ -19,18 +19,20 @@ export class CardsService {
       Authorization: `Bearer ${token}`,
     });
 
-return this.http.get<CardModel[]>(`${this.baseUrl}/user/1`, { headers }).pipe(
-  map(cards => {
-    const sorted = cards
-      .slice()
-      .sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
+    return this.http
+      .get<CardModel[]>(`${this.baseUrl}/user/1`, { headers })
+      .pipe(
+        map((cards) => {
+          const sorted = cards
+            .slice()
+            .sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
 
-    return sorted.map((card, index) => ({
-      ...card,
-      priority: index + 1
-    }));
-  })
-);
+          return sorted.map((card, index) => ({
+            ...card,
+            priority: index + 1,
+          }));
+        })
+      );
   }
 
   addCard(card: Partial<CardModel>): Observable<CardModel> {
@@ -53,5 +55,16 @@ return this.http.get<CardModel[]>(`${this.baseUrl}/user/1`, { headers }).pipe(
     });
 
     return this.http.delete<void>(`${this.baseUrl}/${cardId}`, { headers });
+  }
+
+  updateCard(card: CardModel): Observable<void> {
+    const token = this.authService.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.put<void>(`${this.baseUrl}/${card.id}`, card, { headers });
   }
 }
