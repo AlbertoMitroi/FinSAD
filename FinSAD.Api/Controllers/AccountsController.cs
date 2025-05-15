@@ -23,7 +23,7 @@ public class AccountsController(UserManager<User> userManager, IConfiguration co
             return BadRequest(result.Errors);
 
         var token = GenerateJwtToken(user);
-        return Ok(new { token });
+        return Ok(new { token, userId = user.Id, name = user.UserName });
     }
 
     [HttpPost("login")]
@@ -34,7 +34,7 @@ public class AccountsController(UserManager<User> userManager, IConfiguration co
             return Unauthorized();
 
         var token = GenerateJwtToken(user);
-        return Ok(new { token });
+        return Ok(new { token, userId = user.Id, name = user.UserName });
     }
 
     private string GenerateJwtToken(User user)

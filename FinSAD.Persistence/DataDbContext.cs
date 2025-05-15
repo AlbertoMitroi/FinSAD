@@ -1,13 +1,14 @@
 ﻿using FinSAD.Domain.Entities;
 using FinSAD.Persistence.Seed;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore; 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace FinSAD.Persistence
 {
-    public class DataDbContext : IdentityDbContext<User, IdentityRole<int>, int>    
+    public class DataDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Card> Cards { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
@@ -29,6 +30,12 @@ namespace FinSAD.Persistence
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataDbContext).Assembly);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings =>
+                warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         }
     }
 }

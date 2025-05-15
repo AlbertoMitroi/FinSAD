@@ -11,18 +11,18 @@
       <i class="uil" [ngClass]="isDarkTheme ? 'uil-sun' : 'uil-moon'"></i>
     </button>
     <div class="nav__profile">
-      <div class="nav__profile-photo">
-        <img src="profile-1.jpg" alt="Profile Photo" />
-      </div>
-      <div class="dropdown">
-        <button class="dropdown-toggle" (click)="toggleDropdown()">
-          <h5>{{ userName }}</h5>
-          <i class="uil uil-angle-down"></i>
-        </button>
-        <div *ngIf="dropdownOpen" class="dropdown-menu">
-          <button class="dropdown-item" (click)="logout()">Logout</button>
+    <div class="nav__profile-photo">
+      <img src="profile-1.jpg" alt="Profile Photo" />
+    </div>
+    <div class="nav__profile-username-dropdown">
+      <span class="nav__profile-username">{{ this.userName }}</span>
+      <button class="dropdown-toggle" (click)="toggleDropdown()">
+        <i class="uil uil-angle-down"></i>
+      </button>
+    <div *ngIf="dropdownOpen" class="dropdown-menu">
+      <button class="dropdown-item" (click)="logout()">Logout</button>
         </div>
-      </div>
+    </div>
     </div>
     <button class="nav__menu-btn">
       <i class="uil uil-bars"></i>

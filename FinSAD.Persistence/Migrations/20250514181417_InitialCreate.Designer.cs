@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinSAD.Persistence.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20250513132643_InitialCreate")]
+    [Migration("20250514181417_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -97,6 +97,44 @@ namespace FinSAD.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Cards");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 27119m,
+                            Currency = "USD",
+                            CurrencyLogo = "USD.png",
+                            Cvv = "**5",
+                            Expiry = new DateTime(2035, 12, 1),
+                            Holder = "Test User",
+                            ProviderLogo = "citigroup.png",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 12102m,
+                            Currency = "GBP",
+                            CurrencyLogo = "GBP.png",
+                            Cvv = "**9",
+                            Expiry = new DateTime(2030, 8, 1),
+                            Holder = "Test User",
+                            ProviderLogo = "master card.png",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 7382m,
+                            Currency = "EURO",
+                            CurrencyLogo = "EURO.png",
+                            Cvv = "**2",
+                            Expiry = new DateTime(2026, 6, 1),
+                            Holder = "Test User",
+                            ProviderLogo = "visa.png",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.CardAmountHistory", b =>
@@ -124,6 +162,296 @@ namespace FinSAD.Persistence.Migrations
                     b.HasIndex("CardId");
 
                     b.ToTable("CardAmountHistory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 2719m,
+                            CardId = 1,
+                            Month = 5,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 3120m,
+                            CardId = 1,
+                            Month = 4,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 1998m,
+                            CardId = 1,
+                            Month = 3,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Amount = 4400m,
+                            CardId = 1,
+                            Month = 2,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Amount = 3888m,
+                            CardId = 1,
+                            Month = 1,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Amount = 5221m,
+                            CardId = 1,
+                            Month = 12,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Amount = 3790m,
+                            CardId = 1,
+                            Month = 11,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Amount = 6100m,
+                            CardId = 1,
+                            Month = 10,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Amount = 2890m,
+                            CardId = 1,
+                            Month = 9,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Amount = 3333m,
+                            CardId = 1,
+                            Month = 8,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Amount = 4122m,
+                            CardId = 1,
+                            Month = 7,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Amount = 3911m,
+                            CardId = 1,
+                            Month = 6,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Amount = 1280m,
+                            CardId = 2,
+                            Month = 5,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Amount = 1402m,
+                            CardId = 2,
+                            Month = 4,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Amount = 1500m,
+                            CardId = 2,
+                            Month = 3,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Amount = 1421m,
+                            CardId = 2,
+                            Month = 2,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Amount = 1600m,
+                            CardId = 2,
+                            Month = 1,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Amount = 1580m,
+                            CardId = 2,
+                            Month = 12,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Amount = 1700m,
+                            CardId = 2,
+                            Month = 11,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Amount = 1900m,
+                            CardId = 2,
+                            Month = 10,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Amount = 2100m,
+                            CardId = 2,
+                            Month = 9,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Amount = 2000m,
+                            CardId = 2,
+                            Month = 8,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Amount = 1850m,
+                            CardId = 2,
+                            Month = 7,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Amount = 1755m,
+                            CardId = 2,
+                            Month = 6,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Amount = 730m,
+                            CardId = 3,
+                            Month = 5,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Amount = 820m,
+                            CardId = 3,
+                            Month = 4,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Amount = 790m,
+                            CardId = 3,
+                            Month = 3,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Amount = 880m,
+                            CardId = 3,
+                            Month = 2,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Amount = 860m,
+                            CardId = 3,
+                            Month = 1,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Amount = 840m,
+                            CardId = 3,
+                            Month = 12,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Amount = 920m,
+                            CardId = 3,
+                            Month = 11,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Amount = 1010m,
+                            CardId = 3,
+                            Month = 10,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Amount = 980m,
+                            CardId = 3,
+                            Month = 9,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Amount = 940m,
+                            CardId = 3,
+                            Month = 8,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Amount = 895m,
+                            CardId = 3,
+                            Month = 7,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Amount = 875m,
+                            CardId = 3,
+                            Month = 6,
+                            Year = 2024
+                        });
                 });
 
             modelBuilder.Entity("FinSAD.Domain.Entities.Category", b =>
@@ -376,6 +704,24 @@ namespace FinSAD.Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4714de46-3dc3-43bd-b706-fc221da73ee3",
+                            Email = "test@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "TEST@GMAIL.COM",
+                            NormalizedUserName = "TestUserName",
+                            PasswordHash = "AQAAAAIAAYagAAAAECDpje8esFcgVy+8yivypVavVlA9LxtdznO2NhB1bKyFF+KjwTJvI0GGWKM9dfcKYQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "A1B2C3D4-E5F6-7890-1234-56789ABCDEF0",
+                            TwoFactorEnabled = false,
+                            UserName = "testUserName"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>

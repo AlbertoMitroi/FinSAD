@@ -87,6 +87,25 @@ body {
   border-radius: var(--radius-3);
 }
 
+.wallet__token-right .wallet__token-image{
+  margin-top: 0.8rem;
+  width: 6rem;
+  background: none;
+}
+
+.wallet__token.wallet__token--add{
+  justify-content: center;
+  align-items: center;
+}
+
+.wallet__token.wallet__token--add i{
+  font-size: 4rem;
+}
+
+.wallet__token-header{
+  margin-right: 1rem;
+}
+
 .wallet__token-left > div {
   display: flex;
   flex-direction: column;
@@ -101,8 +120,26 @@ body {
 
 .wallet__token-right {
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.wallet__token-actions i{
+  font-size: 3rem;
+  margin: 0.5rem;
+  padding: 0 0.5rem;
+  color: white;
+  border-radius: var(--radius-3);
+  background: var(--color-primary);
+}
+
+.wallet__token-priority{
+  padding: 0.8rem;
+  height: 5.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-3);
+  background: var(--color-primary-light);
 }
 
 @media screen and (max-width: 1024px) {

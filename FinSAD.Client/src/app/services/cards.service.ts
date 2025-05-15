@@ -1,39 +1,24 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { CardModel } from '../models/CardModels';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardsService {
-  getCards(): CardModel[] {
-    return [
-      {
-        currency: 'USD',
-        amount: '$27,119',
-        holder: 'Alberto Mitroi',
-        expiry: '12/35',
-        cvv: '**5',
-        currencyLogo: 'USD.png',
-        providerLogo: 'citigroup.png'
-      },
-      {
-        currency: 'GBP',
-        amount: '£12,102',
-        holder: 'Alberto Mitroi',
-        expiry: '08/30',
-        cvv: '**9',
-        currencyLogo: 'GBP.png',
-        providerLogo: 'master card.png'
-      },
-      {
-        currency: 'EURO',
-        amount: '€7,382',
-        holder: 'Alberto Mitroi',
-        expiry: '06/26',
-        cvv: '**2',
-        currencyLogo: 'EURO.png',
-        providerLogo: 'visa.png'
-      }
-    ];
+  private baseUrl = 'https://localhost:7283/api/Card';
+
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  getCards(): Observable<CardModel[]> {
+    const token = this.authService.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<CardModel[]>(`${this.baseUrl}/user/1`, { headers });
   }
 }

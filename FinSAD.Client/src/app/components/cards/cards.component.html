@@ -1,36 +1,47 @@
 <section class="main__cards">
-    <article class="card" *ngFor="let card of cards">
-      <div class="card__header">
-        <div class="card__header-left">
-          <img [src]="card.currencyLogo" [alt]="card.currency" />
-          <h3>{{ card.currency }}</h3>
+  <article 
+    class="card" 
+    routerLink="/wallet" 
+    *ngFor="let card of displayCards" 
+    [ngClass]="{'placeholder-card': !card.amount}"
+  >
+    <div class="card__header">
+      <div class="card__header-left">
+        <img *ngIf="card.currencyLogo && card.amount" [src]="card.currencyLogo" [alt]="card.currency" />
+        <h3 *ngIf="card.amount">{{ card.currency }}</h3>
+      </div>
+      <div class="card__header-right">
+        <img *ngIf="card.providerLogo && card.amount" [src]="card.providerLogo" alt="Card Provider" />
+      </div>
+    </div>
+
+    <div class="card__body">
+      <h1 *ngIf="card.amount">{{ card.amount | number:'1.0-0' }} {{ card.currency }}</h1>
+      <div class="card__body-chip" *ngIf="card.amount">
+        <img src="card chip.png" alt="Card Chip" />
+      </div>
+    </div>
+
+    <div class="card__footer">
+      <div class="card__footer-left">
+        <small *ngIf="card.amount">Card Holder</small>
+        <h5 *ngIf="card.amount">{{ card.holder }}</h5>
+      </div>
+      <div class="card__footer-right">
+        <div class="expiry" *ngIf="card.amount">
+          <small>Expiry</small>
+          <h5>{{ card.expiry }}</h5>
         </div>
-        <div class="card__header-right">
-          <img [src]="card.providerLogo" alt="Card Provider" />
+        <div class="CVV" *ngIf="card.amount">
+          <small>CVV</small>
+          <h5>{{ card.cvv }}</h5>
         </div>
       </div>
-      <div class="card__body">
-        <h1>{{ card.amount }}</h1>
-        <div class="card__body-chip">
-          <img src="card chip.png" alt="Card Chip" />
-        </div>
-      </div>
-      <div class="card__footer">
-        <div class="card__footer-left">
-          <small>Card Holder</small>
-          <h5>{{ card.holder }}</h5>
-        </div>
-        <div class="card__footer-right">
-          <div class="expiry">
-            <small>Expiry</small>
-            <h5>{{ card.expiry }}</h5>
-          </div>
-          <div class="CVV">
-            <small>CVV</small>
-            <h5>{{ card.cvv }}</h5>
-          </div>
-        </div>
-      </div>
-    </article>
-  </section>
-  
+    </div>
+
+    <div *ngIf="!card.amount" class="card-placeholder">
+      <h1>No card added</h1>
+      <p>Click to add a new card to your wallet.</p>
+    </div>
+  </article>
+</section>
