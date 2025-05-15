@@ -5,6 +5,7 @@ namespace FinSAD.Application.DTOs
 {
     public class CardDto
     {
+        public int Id {get; set;}
         public string Currency { get; set; }
         public string Amount { get; set; }
         public string Holder { get; set; }

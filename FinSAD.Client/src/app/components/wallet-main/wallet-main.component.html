@@ -21,7 +21,7 @@
 
   <ul class="wallet__tokens">
     <li class="wallet__token wallet__token--add">
-      <i class="uil uil-plus-circle"></i>
+      <i class="uil uil-plus-circle" (click)="addCard()"></i>
     </li>
     <li class="wallet__token" *ngFor="let card of tokens; let i = index">
       <div class="wallet__token-left">
@@ -51,7 +51,7 @@
         </div>
         <div class="wallet__token-priority">
           <h4>Priority</h4>
-          <h1>1</h1>
+          <h1>{{ card.priority }}</h1>
         </div>
         <div class="wallet__token-actions">
           <i class="uil uil-edit" (click)="editCard(i)"></i>

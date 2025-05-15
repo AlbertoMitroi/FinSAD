@@ -22,10 +22,25 @@ namespace FinSAD.Persistence.Repositories
             return user?.Cards ?? Enumerable.Empty<Card>();
         }
 
-        public async Task AddAsync(Card card)
+        public async Task AddAsync(Card card, int userId, CancellationToken cancellationToken)
         {
-            await context.Cards.AddAsync(card);
-            await context.SaveChangesAsync();
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+
+            if(user == null) throw new Exception("User not found for adding card");
+
+            user.Cards.Add(new Card{
+                Amount = card.Amount,
+                AmountHistory = card.AmountHistory,
+                Currency = card.Currency,
+                CurrencyLogo = card.CurrencyLogo,
+                Cvv = card.Cvv,
+                Expiry = card.Expiry,
+                Holder = card.Holder,
+                ProviderLogo = card.ProviderLogo
+            });
+
+            context.Update(user);
+            await context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task UpdateAsync(Card card)
@@ -34,8 +49,11 @@ namespace FinSAD.Persistence.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Card card)
+        public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
+            var card = await context.Cards.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+            if(card == null) throw new Exception("User not found for adding card");
+
             context.Cards.Remove(card);
             await context.SaveChangesAsync();
         }

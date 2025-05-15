@@ -1,4 +1,6 @@
 export interface CardModel {
+    id: number;
+    priority?: number;
     currency: string;
     amount: string;
     holder: string;

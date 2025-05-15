@@ -15,6 +15,7 @@ namespace FinSAD.Application.Features.Cards.Queries
 
             var cardDtos = cards.Select(card => new CardDto
             {
+                Id = card.Id,
                 Currency = card.Currency,
                 Amount = card.Amount.ToString(),
                 Holder = card.Holder,
