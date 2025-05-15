@@ -5,6 +5,7 @@ using FinSAD.Application.Features.Categories.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using FinSAD.Application.DTOs;
 
 
 namespace FinSAD.Api.Controllers
@@ -30,12 +31,17 @@ namespace FinSAD.Api.Controllers
                     : NotFound("Categories not found.");
         }
 
-        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCategoryCommand command)
+        public async Task<IActionResult> AddCategory([FromBody] CategoryPostDto categoryPostDto, int userId)
         {
-            var id = await _mediator.Send(command);
-            return CreatedAtAction(nameof(Create), new { id }, id);
+            if (categoryPostDto == null)
+            {
+                return BadRequest("Invalid category data.");
+            }
+
+            var result = await _mediator.Send(new CreateCategoryCommand(categoryPostDto, userId));
+
+            return CreatedAtAction(nameof(GetCategoriesByUserId), new { userId = result.UserId }, result);
         }
     }
 }

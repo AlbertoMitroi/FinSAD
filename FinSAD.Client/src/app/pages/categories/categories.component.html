@@ -1,13 +1,48 @@
 <div class="page-container">
-    <div class="category-cards-container">
-      <button class="add-button">
-        <i class="uil uil-plus"></i>
-      </button>
-      <ng-container *ngIf="!notFound; else notFoundBlock">
-        <category-card *ngFor="let category of categories; trackBy: trackByFn" [category]="category"></category-card>
-      </ng-container>
-      <ng-template #notFoundBlock>
-        <h2 >No categories yet.</h2>
-      </ng-template>
+  <div class="category-cards-container">
+    <!-- Plus button is always visible -->
+    <button type="button" class="add-button" (click)="onShowAddForm()">
+      <i class="uil uil-plus"></i>
+    </button>
+
+    <ng-container *ngIf="!notFound; else notFoundBlock">
+      <category-card *ngFor="let category of categories; trackBy: trackByFn" [category]="category"></category-card>
+    </ng-container>
+    <ng-template #notFoundBlock>
+      <h2>No categories yet.</h2>
+    </ng-template>
+  </div>
+
+  <!-- Modal for Add Category Form -->
+  <div class="modal-overlay" *ngIf="showAddForm">
+    <div class="modal-content">
+      <form (ngSubmit)="onAddCategory()" #categoryForm="ngForm" class="add-category-form">
+        <h2>Add Category</h2>
+        <input
+          type="text"
+          name="title"
+          [(ngModel)]="newCategory.title"
+          placeholder="Title"
+          required
+          class="category-input"
+        />
+        <input
+          type="text"
+          name="description"
+          [(ngModel)]="newCategory.description"
+          placeholder="Description"
+          required
+          class="category-input"
+        />
+        <div class="modal-actions">
+          <button type="submit" [disabled]="categoryForm.invalid" class="form-button submit">
+            Submit
+          </button>
+          <button type="button" class="form-button cancel" (click)="onCancelAdd()">
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
