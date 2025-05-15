@@ -11,7 +11,7 @@ namespace FinSAD.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AccountsController(UserManager<User> userManager, IConfiguration config) : ControllerBase
+public class AccountController(UserManager<User> userManager, IConfiguration config) : ControllerBase
 {
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
@@ -30,6 +30,8 @@ public class AccountsController(UserManager<User> userManager, IConfiguration co
     public async Task<IActionResult> Login(LoginRequest request)
     {
         var user = await userManager.FindByEmailAsync(request.Email);
+                Console.WriteLine(user);
+
         if (user == null || !(await userManager.CheckPasswordAsync(user, request.Password)))
             return Unauthorized();
 

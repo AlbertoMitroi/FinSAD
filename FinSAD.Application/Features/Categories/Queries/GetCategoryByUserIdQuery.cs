@@ -14,7 +14,8 @@ namespace FinSAD.Application.Features.Categories.Queries
             var category = await categoryRepository.GetAllByUserIdAsync(request.userId);
 
             var categoryDtos = category.Select(category => new CategoryDto
-            {
+            {   
+                Id = category.Id,
                 Title = category.Title,
                 Description = category.Description.ToString(),
             }).ToList();

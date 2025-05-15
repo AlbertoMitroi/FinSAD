@@ -3,6 +3,11 @@
       <button class="add-button">
         <i class="uil uil-plus"></i>
       </button>
-      <category-card *ngFor="let category of categories; trackBy: trackByFn" [category]="category"></category-card>
+      <ng-container *ngIf="!notFound; else notFoundBlock">
+        <category-card *ngFor="let category of categories; trackBy: trackByFn" [category]="category"></category-card>
+      </ng-container>
+      <ng-template #notFoundBlock>
+        <h2 >No categories yet.</h2>
+      </ng-template>
     </div>
 </div>

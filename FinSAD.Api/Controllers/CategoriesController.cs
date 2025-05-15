@@ -6,31 +6,36 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-[ApiController]
-[Route("api/[controller]")]
-public class CategoriesController : ControllerBase
+
+namespace FinSAD.Api.Controllers
 {
-    private readonly IMediator _mediator;
-
-    public CategoriesController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+    [ApiController]
+    [Route("api/[controller]")]
     [Authorize]
-    [HttpGet("/categories")]
-    public async Task<IActionResult> GetCategoriesByUserId(int userId)
+    public class CategoriesController : ControllerBase
     {
-        var categories = await _mediator.Send(new GetCategoriesByUserIdQuery(userId));
-            return categories?.Count > 0 ?
-                Ok(categories)
-                : NotFound("Categories not found.");
-    }
+        private readonly IMediator _mediator;
 
-    [Authorize]
-    [HttpPost]
-    public async Task<IActionResult> Create(CreateCategoryCommand command)
-    {
-        var id = await _mediator.Send(command);
-        return CreatedAtAction(nameof(Create), new { id }, id);
+        public CategoriesController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+        [Authorize]
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetCategoriesByUserId(int userId)
+        {
+            var categories = await _mediator.Send(new GetCategoriesByUserIdQuery(userId));
+                return categories?.Count > 0 ?
+                    Ok(categories)
+                    : NotFound("Categories not found.");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateCategoryCommand command)
+        {
+            var id = await _mediator.Send(command);
+            return CreatedAtAction(nameof(Create), new { id }, id);
+        }
     }
 }
